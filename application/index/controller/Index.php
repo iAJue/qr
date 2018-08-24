@@ -59,7 +59,7 @@ class Index extends Controller{
     			return [ 'status' => 1, 'msg' => '请上传正确的支付宝收款码'];
     		}elseif ($pay == 'qq' && stripos($url,'qianbao.qq') === false) {
     			return [ 'status' => 1, 'msg' => '请上传正确的QQ收款码'];
-    		}elseif ($pay == 'wechat' && stripos($url,'wxp://') === false) {
+    		}elseif ($pay == 'wechat' && (stripos($url,'wxp://') === false || stripos($url,'wx.tenpay.com') === false)) {
     			return [ 'status' => 1, 'msg' => '请上传正确的微信收款码'];
     		}
         	
