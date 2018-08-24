@@ -55,11 +55,11 @@ class Index extends Controller{
         	if (!$url) {
         		return [ 'status' => 1, 'msg' => '二维码识别失败' ];
         	}
-    		if($pay == 'alipay' && strpos ($url,'ALIPAY.COM') === false) {
+    		if($pay == 'alipay' && stripos ($url,'ALIPAY.COM') === false) {
     			return [ 'status' => 1, 'msg' => '请上传正确的支付宝收款码'];
-    		}elseif ($pay == 'qq' && strpos($url,'qianbao.qq') === false) {
+    		}elseif ($pay == 'qq' && stripos($url,'qianbao.qq') === false) {
     			return [ 'status' => 1, 'msg' => '请上传正确的QQ收款码'];
-    		}elseif ($pay == 'wechat' && strpos($url,'wxp://') === false) {
+    		}elseif ($pay == 'wechat' && stripos($url,'wxp://') === false) {
     			return [ 'status' => 1, 'msg' => '请上传正确的微信收款码'];
     		}
         	
