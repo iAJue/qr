@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <meta name="description" content="<{$Think.config.description}>">
+  <meta name="keywords" content="<{$Think.config.keywords}>">
+  <title><{$Think.config.title}><{$Think.config.siteinfo?=' - '.$Think.config.siteinfo}></title>
+  <link rel="stylesheet" href="__PUBLIC__layui/css/layui.css"/>
+  <style type="text/css">
+    html {background-color: rgb(248, 249, 250);}
+	img{ pointer-events: none; }
+    input[type="text"]{text-align:center;font-size: 17px;border-radius: 20px;height: 45px;}
+    .bg{background-color: #eeeeee;}
+    .footer {margin: 50px 0 0;padding: 20px 0 30px;line-height: 30px;text-align: center;color: #737573; border-top: 1px solid #e2e2e2;    }
+    a{color: #6d757a;}
+    .and{padding-top: 50px;text-align: center;}
+    .and i{font-size: 100px;color: #1E9FFF;}
+    .logo img{width: 135px;}
+    .layui-nav{position: absolute;right: 0;top: 0;padding: 0;background: none;}
+    @media screen and (max-width:993px) {
+        .and{padding-top: 0px;}
+        .layui-main{width: 100%;}
+        .layui-nav{display: none;}
+        .layui-carousel{display: none;}
+    }
+  </style>
+</head>
+<body>
+<div class="fly-header layui-bg-cyan">
+  <div class="layui-header header header-demo" summer="">
+  <div class="layui-main">
+    <a class="logo" href="/">
+      <img src="__PUBLIC__images/logo.png">
+    </a>
+    <ul class="layui-nav">
+    <{foreach name="$Think.config.link" item="vo" key="k"}>
+      <li class="layui-nav-item">
+        <a href="<{$vo}>" target="_black"><{$k}></a> 
+      </li>
+    <{/foreach}>
+  </div>
+</div>
+</div>
+<div class="layui-container" style="text-align: center;">  
+    <div class="layui-row">
+    <div class="layui-col-md12">
+        <div class="layui-carousel" id="test2">
+          <div carousel-item="">
+            <div><img src="__PUBLIC__images/b01.jpg"></div>
+            <div><img src="__PUBLIC__images/b02.jpg"></div>
+          </div>
+        </div>
+    </div>
+    </div>
+    <fieldset class="layui-elem-field layui-field-title">
+      <legend><{$Think.config.title}> - 收款码三合一</legend>
+      <div class="layui-field-box">
+        将微信收款码、QQ收款码和支付宝收款码合并为一个二维码，用户扫码后直接付款给商家，无需手续费。
+      </div>
+    </fieldset>
+  <div class="layui-row">
+    <div class="layui-col-md3">
+      <div class="grid-demo grid-demo-bg1">
+		<div class="layui-upload-drag upload" lay-data="{url: '<{:url('index/index/uploads','pay=alipay')}>',pid:'alipay'}">
+		  <img src="__PUBLIC__images/alipay.png">
+		</div>
+      </div>
+    </div>
+    <div class="layui-col-md6">
+        <div class="layui-row">
+            <div class="layui-col-md3 and"><i class="layui-icon">&#xe654;</i></div>
+            <div class="layui-col-md6">
+                <div class="grid-demo">
+                    <div class="layui-upload-drag upload" lay-data="{url: '<{:url('index/index/uploads','pay=qq')}>',pid:'qq'}">
+                        <img src="__PUBLIC__images/qq.png">
+                    </div>
+                </div>
+            </div>
+            <div class="layui-col-md3 and"><i class="layui-icon">&#xe654;</i></div>
+        </div>
+    </div>
+    <div class="layui-col-md3">
+      <div class="grid-demo grid-demo-bg1">
+      	<div class="layui-upload-drag upload" lay-data="{url: '<{:url('index/index/uploads','pay=wechat')}>',pid:'wechat'}">
+		  <img src="__PUBLIC__images/wechat.png">
+		</div>
+      </div>
+    </div>
+  </div>
+    <div class="layui-row" style="margin-top: 20px;">
+        <div class="layui-col-md12" style="text-align: center;">
+          <div class="layui-form-item">
+            <input type="text" name="title" required  lay-verify="required" placeholder="支付宝收款码" autocomplete="off" class="layui-input layui-disabled bg" disabled id="alipay">
+          </div>
+          <div class="layui-form-item">
+            <input type="text" name="qq" required  lay-verify="required" placeholder="QQ收款码" autocomplete="off" class="layui-input layui-disabled bg" disabled id="qq">
+          </div>
+          <div class="layui-form-item">
+            <input type="text" name="wechat" required  lay-verify="required" placeholder="微信收款码" autocomplete="off" class="layui-input layui-disabled bg" disabled id="wechat">
+          </div>
+          <div class="layui-form-item">
+            <input type="text" name="name" required  lay-verify="required" placeholder="请输入收款人昵称" autocomplete="off" class="layui-input " id="name">
+          </div>
+            <button class="layui-btn layui-btn-lg layui-btn-radius layui-btn-normal" id="submit">一键合成</button>
+        </div>
+    </div>
+    <{if condition="$Think.config.explain == 'on'"}>
+    <div class="layui-row" style="padding-top:50px;">
+        <fieldset class="layui-elem-field">
+          <legend>常见问题</legend>
+          <div class="layui-field-box" style="text-align:left;line-height: 30px;">
+            <b>1.合并后的收款码有扫码次数和时间限制吗？</b>
+            <p>无限制扫码次数；永久可用。</p>
+            <b>2.合并后的二维码安全吗？</b>
+            <p>安全。技术上，我们只是对三种类型的收款码进行合并，让用户收款使用更方便</p>
+            <b>3.别人扫码付款后，钱打到哪里去了？</b>
+            <p>打到您的个人账户。具体来说：微信扫码付款时，钱打到您的微信钱包里；支付宝扫码付款时，钱打到您的支付宝账户里；QQ扫码付款时，钱打到您的QQ钱包里</p>
+            <b>4.为什么微信、QQ扫码后还需要长按识别？</b>
+            <p>微信、QQ接口未开放权限，无法直接调起微信、QQ转账页面，所以需要长按识二维码别进行转账。（给您带来不便还请谅解）目前支付宝接口已开放权限。可以直接扫码付款。</p>
+            <b>5.使用此功能时，支付宝、微信、QQ会向我收取费用吗？</b>
+            <p>不会。此功能是对二维码进行合并，不涉及微信、支付宝、QQ的收费问题。<p>
+            <b>6.在网站上传收款码会泄露用户隐私资料吗？</b>
+            <p>不会。收款码是个人的收款二维码，是客户向对方转账的一种方式，和商家平时向客户展示的收款码是一样的。</p>
+            <b>7.合并后的二维码能通过微信或者支付宝或者QQ扫码转账码？</b>
+            <p>可以。通过合并后的二维码可以自动识别用户扫码方式，微信扫码则使用微信支付，支付宝扫码则使用支付宝支付，QQ扫码则使用QQ支付</p>
+            <b>8.合并二维码对于商家有什么好处？</b>
+            <p>①对于商家来说可免中间手续费，收款直接转入到商家个体账户，不需经过第三方公司提现。</p>
+            <p>②一码在手，随扫随有：只保留一个扫码牌就可以了。</p>
+            <p>③此功能免费使用</p>
+          </div>
+        </fieldset>
+        <fieldset class="layui-elem-field">
+              <legend>产品优势</legend>
+              <div class="layui-field-box" style="line-height: 35px;">
+              <div class="layui-row">
+                <div class="layui-col-md3" style="padding-right: 10px;"><img src="__PUBLIC__images/1.png"><h3>一码收款</h3>通过合并后的二维码可以自动识别用户扫码方式，微信扫码则使用微信支付，支付宝扫码则使用支付宝支付，商家无需打印2个二维码，节省成本与空间。</div>
+                <div class="layui-col-md3" style="padding-right: 10px;"><img src="__PUBLIC__images/2.png"><h3>收益最大化</h3>全新扫码转账技术，钱直接转到商家个体 账户，收款啦不参与中间转账过程，完 全免费提供技术支持，保证商家利益。</div>
+                <div class="layui-col-md3" style="padding-right: 10px;"><img src="__PUBLIC__images/3.png"><h3>免提现费</h3>用户通过扫描合并后的二维码转账，直接 转到商户个体账户里，省去千分之6的手 续费。</div>
+                <div class="layui-col-md3"><img src="__PUBLIC__images/4.png"><h3>轻松快捷</h3>一码收款，对于用户，无需关注扫码支付 方式，直接扫码付款即可。不用担心不能 微信支付或者支付宝支付。</div>
+              </div>
+              </div>
+        </fieldset>
+    </div>
+    <{/if}>
+</div>
+<div id="tong" style="display: none;"><img id="qr" src="__PUBLIC__images/dashang.png" style="width:100%"></div>
+<div class="footer">
+    <p>Copyright © 2018 <a href="/"><{$Think.config.title}></a></p>
+    <{$Think.config.copyright}><{$Think.config.footerinfo}>
+    <{if condition="$Think.config.statis=='on'"}>
+    <p>今日生成<{$count}>次，累计生成<{$total}>次</p>
+    <{/if}>
+</div>
+<script src="__PUBLIC__layui/layui.js"></script>
+<script type="text/javascript">
+</script>
+</body>
+</html>

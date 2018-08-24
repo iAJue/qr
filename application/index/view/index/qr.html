@@ -1,0 +1,12 @@
+<{extend name="base" /}>
+<{block name="title"}>三合一万能码<{/block}>
+<{block name="style"}>
+<style type="text/css">
+* {margin: 0; padding: 0;}.code-area {text-align: center;}.code-area>img {margin: 80px 0;width: 25%; min-width: 100px;}
+</style>
+<{/block}>
+<{block name="body"}>
+<div class="code-area">
+    <img id="page-url" src="__PUBLIC__images/qr/<{$url}>">
+</div>
+<{/block}>
