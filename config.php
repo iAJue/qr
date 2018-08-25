@@ -11,7 +11,7 @@ return [
 
 	// 视图输出字符串内容替换
 	'view_replace_str'       => [
-		//修改成自己的域名(这里要改)
+		//修改成自己的[域名](这里要改)
 	    '__PUBLIC__' => 'http://XXXX.XXX/static/',
 	],
 
@@ -38,9 +38,13 @@ return [
 
 	// 导航
 	'link' => [
-		'如果可以，请给作者一份打赏' => 'https://www.52ecy.cn/post-87.html',
+		// 可以参考底部评论
+		'如果可以，请给作者一份打赏' => 'https://www.52ecy.cn/post-88.html',
+		// 随时可能更新
 		'GitHub' => 'https://github.com/178146582/qr',
+
 		'博客' => 'https://www.52ecy.cn',
+		// 有问题请加群
 		'有问题点我' => 'http://shang.qq.com/wpa/qunwpa?idkey=826e8e5961b8acf3eb7bb4fd8595a59e38deb618deaee70912dd0c4cd9f97457',
 	],
 	
