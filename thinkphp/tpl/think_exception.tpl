@@ -440,9 +440,8 @@
     <?php } ?>
 
     <div class="copyright">
-        <a title="官方网站" href="http://www.thinkphp.cn">ThinkPHP</a> 
-        <span>V<?php echo THINK_VERSION; ?></span> 
-        <span>{ 十年磨一剑-为API开发设计的高性能框架 }</span>
+        <a title="收款啦三合一平台" href="https://qr.52ecy.cn">收款啦三合一平台</a> 
+        <span>{ 如果你看到这个页面，那么就打开调试模式 }</span>
     </div>
     <?php if(\think\App::$debug) { ?>
     <script>

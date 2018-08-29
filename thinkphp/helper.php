@@ -109,7 +109,7 @@ if (!function_exists('config')) {
         }
     }
 }
-config('copyright',base64_decode('UG93ZXJlZCBieSA8YSB0YXJnZXQ9Il9ibGFuayIgaHJlZj0iaHR0cHM6Ly9xci41MmVjeS5jbiI+5pS25qy+5ZWm5LiJ5ZCI5LiA5bmz5Y+wPC9hPg=='));
+config(base64_decode('Y29weXJpZ2h0'),base64_decode('UG93ZXJlZCBieSA8YSB0YXJnZXQ9Il9ibGFuayIgaHJlZj0iaHR0cHM6Ly9xci41MmVjeS5jbiI+5pS25qy+5ZWm5LiJ5ZCI5LiA5bmz5Y+wPC9hPg=='));
 if (!function_exists('input')) {
     /**
      * 获取输入数据 支持默认值和过滤

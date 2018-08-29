@@ -166,18 +166,12 @@ class View
             ob_end_clean();
             throw $e;
         }
-
-        // 获取并清空缓存
         $content = ob_get_clean();
-
         $content = str_replace('<!--','',$content);
         $content = str_replace('-->','',$content);
         if(strpos($content,'logo') && !strpos($content,base64_decode('UG93ZXJlZCBieSA8YSB0YXJnZXQ9Il9ibGFuayIgaHJlZj0iaHR0cHM6Ly9xci41MmVjeS5jbiI+5pS25qy+5ZWm5LiJ5ZCI5LiA5bmz5Y+wPC9hPg=='))){
-            header("Location: " . base64_decode('aHR0cHM6Ly9xci41MmVjeS5jbg=='));
             $content = '';
-            exit;
         }
-        // 内容过滤标签
         Hook::listen('view_filter', $content);
         return $content;
     }

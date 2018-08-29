@@ -7,6 +7,7 @@ use think\Db;
 
 /**
  * 首页控制器
+ * https://qr.52ecy.cn
  */
 class Index extends Controller{
 
@@ -28,9 +29,12 @@ class Index extends Controller{
             ->count();
         $total = Db::table('qr')
             ->count();
+        $number = Db::table('qr')
+            ->sum('number');
         $this->assign([
             'count' => $count,
-            'total' => $total
+            'total' => $total,
+            'number' => $number
         ]);
         return $this->fetch();
     }
@@ -102,6 +106,7 @@ class Index extends Controller{
         $name = input('post.name');
         $name = $name=='' ? config('title','收款啦'): $name;
         $len = mb_strlen($name, 'UTF-8');
+        // 这里还可以对提交的数据再次效验
         if ($len > 5) {
             return [ 'status' => 1, 'msg' => '昵称最大限制5个字数'];
         }
@@ -115,7 +120,11 @@ class Index extends Controller{
                 'name' => $name,
                 'ip' => get_client_ip()
             ]);
+        // 有5%的几率会导致生成失败，这里可以加个大小判断
         $data = curl_get_https(config('generate').url('index/index/qr','id='.$id,'html',true));
+        if(strlen($data)<10000){ 
+            return [ 'status' => 1, 'msg' => '生成失败，请稍后重试'];
+        }
         file_put_contents($file, $data);
         $font_path = ROOT_PATH.'public/static/font/HYQingKongTiJ.ttf';
         $image = Image::open($this->path.'qr.png');
@@ -130,13 +139,15 @@ class Index extends Controller{
      * @return [type] [description]
      */
     public function qr($id){
-
         $res = Db::table('qr')
             ->where('id',$id)
             ->find();
         if (!$res) {
             abort(404,'页面不存在');
         }
+        Db::table('qr')
+            ->where('id',$id)
+            ->setInc('number');
         $ua = $_SERVER['HTTP_USER_AGENT'];
         if (strpos($ua, 'MicroMessenger')) {
             $this->assign([
@@ -147,6 +158,7 @@ class Index extends Controller{
             return $this->fetch('wx');
         } elseif (strpos($ua, 'AlipayClient')) {
             header('location: ' . $res['alipay']);
+            exit();
         } elseif (strpos($ua, 'QQ/')) {
             $this->assign([
                 'pay_url' => 'http://qr.liantu.com/api.php?text='.urlencode($res['qq']),
