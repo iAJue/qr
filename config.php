@@ -28,10 +28,10 @@ return [
 	'keywords' => '',
 
 	// 二维码识别接口
-	'distinguish' => 'https://www.sojson.com/qrcode/deqrByImages.shtml',
+	'distinguish' => 'http://i.911s.cn/code/scan/analysis?url=',
 
 	// 识别结果截取正则
-	'reg' => '/{"txt":"(.*?)","/',
+	'reg' => '/{"txt":"(.*?)"/',
 
 	// 二维码生成接口
 	'generate' => 'http://qr.liantu.com/api.php?w=600&text=',

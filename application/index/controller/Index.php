@@ -44,18 +44,19 @@ class Index extends Controller{
      * @return [type] [description]
      */
     public function uploads($pay){
-
+        $path = ROOT_PATH . 'public/static/';
         $file = request()->file('file');
         $info = $file
             ->rule(function(){
                 return md5(microtime(true));
             })
             ->validate(['size'=>2097152,'ext'=>'jpg,png,gif'])
-            ->check();
-
+            ->move($path);
         if($info){
-            $url = $this->analysis($file->getInfo('filename')['tmp_name']);
-            
+            $name = $info->getFilename(); 
+            unset($info);
+            @$url = file_get_contents(config('distinguish').config('view_replace_str.__PUBLIC__').$name);
+            @unlink($path.$name);
             if (!$url) {
                 return [ 'status' => 1, 'msg' => '二维码识别失败' ];
             }
@@ -66,19 +67,22 @@ class Index extends Controller{
             }elseif ($pay == 'wechat' && (stripos($url,'wxp://') === false && stripos($url,'wx.tenpay.com') === false)) {
                 return [ 'status' => 1, 'msg' => '请上传正确的微信收款码'];
             }
-            
             return [ 'status' => 0, 'msg' => $url];
         }
         return [ 'status' => 1, 'msg' => $file->getError()];
     }
 
     /**
-     * 解析二维码
+     * 解析二维码(废弃)
      * @return [type] [description]
      */
-    private function analysis($file){
+    private function analysis($file,$multipart = true){
         $ch = curl_init();
-        $data = ['file' => new \CURLFile(realpath($file))];
+        if ($multipart) {
+            $data = ['file' => new \CURLFile(realpath($file))];
+        }else{
+            $data = ['charset' => 'UTF-8','url' => $file];
+        }
         curl_setopt($ch, CURLOPT_URL, config('distinguish'));
         curl_setopt($ch, CURLOPT_POST, 1 );
         curl_setopt($ch, CURLOPT_SAFE_UPLOAD, true);
@@ -86,8 +90,8 @@ class Index extends Controller{
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_USERAGENT,"TEST");
         $result = curl_exec($ch);
+        curl_close($ch);
         // var_dump($result);
         preg_match(config('reg'), $result, $match);
         if (isset($match[1])) {
