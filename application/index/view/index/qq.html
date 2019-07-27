@@ -1,0 +1,14 @@
+<{extend name="base" /}>
+<{block name="title"}>QQ支付<{/block}>
+<{block name="style"}>
+<style type="text/css">
+*{margin:0;padding:0}body{background:#f2f2f2}.banner{width:100%;display:block}.pay-content{padding:15% 7.8125%;background:#54b4ef;text-align:center}.pay-tips{padding-top:9.375%;color:#fff;font-size:18px}
+</style>
+<{/block}>
+<{block name="body"}>
+<img class="banner" src="__PUBLIC__images/Cache_24736d9b21c67e31.jpg">
+<div class="pay-content">
+    <img src="<{:url('index/index/api',$pay_url)}>">
+	<div class="pay-tips">长按识别二维码，向 “<{$pay_name}>” 付款</div>
+</div
+<{/block}>
