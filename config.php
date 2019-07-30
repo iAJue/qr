@@ -12,7 +12,7 @@ return [
 	// 视图输出字符串内容替换
 	'view_replace_str'       => [
 		//修改成自己的 " 域名 "
-	    '__PUBLIC__' => 'http://www.pay.com/static/',
+	    '__PUBLIC__' => 'http://www.baidu.com/static/',
 	],
 
 	// 站点标题

@@ -16,5 +16,5 @@ Route::rule([
 	'uploads/:pay'	=> 	'index/index/uploads',
 	'qr/:id'		=> 	'index/index/qr',
 	'make'			=> 	'index/index/make',
-	'api/[:text]'	=> 	'index/index/api'
+	'api'	=> 	'index/index/api'
 ]);

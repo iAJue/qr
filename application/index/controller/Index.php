@@ -122,7 +122,7 @@ class Index extends Controller{
         Db::table('qr')
             ->where('id',$id)
             ->setInc('number');
-        if(!is_file($this->path . 'qr/' . $res['name'])){
+        if(!is_file($this->path . 'qr/' . $res['qr'])){
             abort(404,'二维码不存在');
         }
         $ua = $_SERVER['HTTP_USER_AGENT'];
